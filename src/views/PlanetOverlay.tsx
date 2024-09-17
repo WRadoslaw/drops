@@ -1,10 +1,9 @@
 import { Button, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { routes } from "../misc/routes";
-import { PlanetType } from "../api";
+import { client, PlanetType } from "../api";
 import { useState } from "react";
 
 export const PlanetOverlay = () => {
@@ -14,15 +13,12 @@ export const PlanetOverlay = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["singlePlanet", params.name],
     queryFn: () =>
-      axios.get<PlanetType>(
-        `https://rasp.kedywonline.uk/planets/getPlanet?name=${params.name}`,
-      ),
+      client.get<PlanetType>(`/planets/getPlanet?name=${params.name}`),
   });
 
   console.log("match", data?.data);
   return (
     <>
-      {" "}
       <motion.div
         initial={{
           height: "0%",

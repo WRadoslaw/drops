@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import { useScene } from "../providers/scene/scene.hooks";
 import { routes } from "../misc/routes";
 import { useNavigate } from "react-router-dom";
+import { client } from "../api";
 
 export const TopBar = () => {
   const [value, setValue] = useState("");
@@ -14,8 +14,8 @@ export const TopBar = () => {
   const { data } = useQuery({
     queryKey: [value, "search"],
     queryFn: () =>
-      axios.get<{ value: string; label: string }[]>(
-        `https://rasp.kedywonline.uk/planets/searchPlanets?name=${value}`,
+      client.get<{ value: string; label: string }[]>(
+        `/planets/searchPlanets?name=${value}`,
       ),
   });
 

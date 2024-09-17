@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export type PlanetType = {
   name: string;
   tagline: string;
@@ -18,3 +20,7 @@ export type PlanetType = {
 export type Rings = {
   url_exists: boolean;
 };
+
+export const client = axios.create({
+  baseURL: "https://rasp.kedywonline.uk",
+});
