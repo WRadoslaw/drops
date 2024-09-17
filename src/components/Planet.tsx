@@ -93,7 +93,6 @@ export const Planet = ({ textureUrl, size, distance, name }: PlanetProps) => {
 
           return () => {
             mountRef.current?.removeEventListener("click", onClick);
-            console.log("clean");
           };
         }
       };

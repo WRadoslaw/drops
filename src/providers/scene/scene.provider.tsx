@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { createContext, ReactNode, useMemo, useRef, useState } from "react";
 import { SceneContextValue } from "./scene.types";
 import { useMountEffect } from "../../hooks/useMountEffect";
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 
 export const SceneContext = createContext<SceneContextValue | null>(null);
 
@@ -50,12 +50,11 @@ export const SceneProvider = (props: { children: ReactNode }) => {
 
     newCamera.position.z = 1;
 
-    // Add orbit controls
-    const newControls = new OrbitControls(newCamera, newRenderer.domElement);
-    newControls.enableDamping = true;
-    newControls.dampingFactor = 0.05;
+    const newControls = new TrackballControls(
+      newCamera,
+      newRenderer.domElement,
+    );
 
-    // Handle window resize
     const handleResize = () => {
       newCamera.aspect = window.innerWidth / window.innerHeight;
       newCamera.updateProjectionMatrix();
@@ -69,7 +68,6 @@ export const SceneProvider = (props: { children: ReactNode }) => {
     setRenderer(newRenderer);
     setControls(newControls);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(newRenderer.domElement);
@@ -88,7 +86,7 @@ export const SceneProvider = (props: { children: ReactNode }) => {
 
   return (
     <SceneContext.Provider value={value}>
-      <div ref={mountRef} style={{ width: "10%", height: "10vh" }} />
+      <div ref={mountRef} style={{ width: "100%", height: "100vh" }} />
       {props.children}
     </SceneContext.Provider>
   );

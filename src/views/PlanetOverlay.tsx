@@ -16,7 +16,6 @@ export const PlanetOverlay = () => {
       client.get<PlanetType>(`/planets/getPlanet?name=${params.name}`),
   });
 
-  console.log("match", data?.data);
   return (
     <>
       <motion.div

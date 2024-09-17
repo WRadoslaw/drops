@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useScene } from "../providers/scene/scene.hooks";
